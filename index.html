@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="es">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solicita mis servicios — Joel Guerrero</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet" />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0a0f1a;
+        --bg2: #050e1f;
+        --bg3: #0c1628;
+        --blue: #378add;
+        --blue-l: #85b7eb;
+        --blue-d: #042c53;
+        --blue-m: #0c447c;
+        --border: #185fa5;
+        --white: #ffffff;
+        --gray: #b5d4f4;
+        --green: #5dcaa5;
+        --green-d: #041a12;
+        --green-b: #085041;
+        --orange: #f97316;
+        --mono: 'JetBrains Mono', monospace;
+        --sans: 'Space Grotesk', sans-serif;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--gray);
+        font-family: var(--sans);
+        font-size: 16px;
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+
+      /* ── HEADER ── */
+      header {
+        border-bottom: 1px solid var(--border);
+        padding: 20px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        background: var(--bg);
+        z-index: 10;
+      }
+
+      .logo {
+        font-family: var(--mono);
+        font-size: 14px;
+        color: var(--blue);
+        letter-spacing: 0.5px;
+      }
+
+      .logo span {
+        color: var(--white);
+        font-weight: 700;
+      }
+
+      .handle {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--blue-l);
+        opacity: 0.7;
+      }
+
+      /* ── HERO ── */
+      .hero {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 72px 24px 48px;
+      }
+
+      .hero-tag {
+        display: inline-block;
+        font-family: var(--mono);
+        font-size: 11px;
+        letter-spacing: 2px;
+        color: var(--blue-l);
+        background: var(--blue-d);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 4px 14px;
+        margin-bottom: 24px;
+        text-transform: uppercase;
+      }
+
+      .hero h1 {
+        font-size: clamp(32px, 6vw, 52px);
+        font-weight: 700;
+        color: var(--white);
+        line-height: 1.15;
+        margin-bottom: 16px;
+      }
+
+      .hero h1 span {
+        color: var(--blue);
+      }
+
+      .hero p {
+        font-size: 17px;
+        color: var(--gray);
+        line-height: 1.7;
+        margin-bottom: 32px;
+        max-width: 540px;
+      }
+
+      .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 48px;
+      }
+
+      .badge {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--blue-l);
+        background: var(--blue-m);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 4px 12px;
+      }
+
+      .divider {
+        width: 100%;
+        height: 1px;
+        background: var(--border);
+        margin-bottom: 48px;
+        opacity: 0.4;
+      }
+
+      /* ── FORM ── */
+      .form-wrap {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 24px 80px;
+      }
+
+      .form-section {
+        margin-bottom: 40px;
+      }
+
+      .form-section-label {
+        font-family: var(--mono);
+        font-size: 10px;
+        letter-spacing: 2px;
+        color: var(--blue);
+        text-transform: uppercase;
+        margin-bottom: 20px;
+        display: block;
+      }
+
+      .field {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--white);
+        margin-bottom: 8px;
+      }
+
+      label .req {
+        color: var(--orange);
+        margin-left: 2px;
+      }
+
+      label .opt {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--blue-l);
+        font-weight: 400;
+        margin-left: 6px;
+        opacity: 0.6;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      textarea,
+      select {
+        width: 100%;
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--white);
+        font-family: var(--sans);
+        font-size: 15px;
+        padding: 14px 16px;
+        outline: none;
+        transition: border-color 0.2s;
+        appearance: none;
+        -webkit-appearance: none;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: var(--blue-m);
+        font-size: 14px;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: var(--blue);
+        background: var(--bg3);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+        line-height: 1.6;
+      }
+
+      select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2385b7eb' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 40px;
+        cursor: pointer;
+      }
+
+      select option {
+        background: var(--bg2);
+        color: var(--white);
+      }
+
+      /* radio / checkbox grid */
+      .options-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 10px;
+      }
+
+      .option-item {
+        position: relative;
+      }
+
+      .option-item input[type="radio"],
+      .option-item input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .option-item label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px 16px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--gray);
+        font-weight: 400;
+        transition: border-color 0.2s, background 0.2s;
+        margin-bottom: 0;
+      }
+
+      .option-item label::before {
+        content: '';
+        width: 16px;
+        height: 16px;
+        border: 1.5px solid var(--border);
+        border-radius: 50%;
+        flex-shrink: 0;
+        transition: background 0.15s, border-color 0.15s;
+      }
+
+      .option-item.checkbox label::before {
+        border-radius: 4px;
+      }
+
+      .option-item input:checked+label {
+        border-color: var(--blue);
+        background: var(--blue-d);
+        color: var(--white);
+      }
+
+      .option-item input:checked+label::before {
+        background: var(--blue);
+        border-color: var(--blue);
+      }
+
+      /* ── SUBMIT ── */
+      .submit-area {
+        margin-top: 40px;
+        padding-top: 32px;
+        border-top: 1px solid var(--border);
+      }
+
+      .submit-note {
+        font-size: 13px;
+        color: var(--blue-l);
+        margin-bottom: 20px;
+        font-family: var(--mono);
+        opacity: 0.7;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        background: var(--blue);
+        color: var(--white);
+        font-family: var(--sans);
+        font-size: 16px;
+        font-weight: 700;
+        padding: 18px 32px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        letter-spacing: 0.3px;
+        transition: background 0.2s, transform 0.1s;
+      }
+
+      button[type="submit"]:hover {
+        background: #2e74c5;
+      }
+
+      button[type="submit"]:active {
+        transform: scale(0.99);
+      }
+
+      button[type="submit"]:disabled {
+        background: var(--blue-m);
+        cursor: not-allowed;
+      }
+
+      /* ── SUCCESS ── */
+      .success {
+        display: none;
+        text-align: center;
+        padding: 60px 24px;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .success-icon {
+        width: 72px;
+        height: 72px;
+        background: var(--green-d);
+        border: 2px solid var(--green);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        font-size: 32px;
+      }
+
+      .success h2 {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 12px;
+      }
+
+      .success p {
+        color: var(--gray);
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 8px;
+      }
+
+      .success .handle-link {
+        display: inline-block;
+        margin-top: 24px;
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--blue);
+        text-decoration: none;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 20px;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 24px;
+        text-align: center;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--blue-l);
+        opacity: 0.5;
+      }
+
+      /* ── ERROR ── */
+      .field-error {
+        font-size: 12px;
+        color: var(--orange);
+        margin-top: 6px;
+        font-family: var(--mono);
+        display: none;
+      }
+
+      input.invalid,
+      textarea.invalid,
+      select.invalid {
+        border-color: var(--orange) !important;
+      }
+
+      @media (max-width: 520px) {
+        header {
+          padding: 16px 20px;
+        }
+
+        .hero {
+          padding: 48px 20px 32px;
+        }
+
+        .form-wrap {
+          padding: 0 20px 60px;
+        }
+
+        .options-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="logo"><span>Joel Guerrero</span> · dev</div>
+      <div class="handle">@joel.guerrero.dev</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-tag">Servicios de desarrollo</div>
+      <h1>Cuéntame sobre<br /><span>tu proyecto</span></h1>
+      <p>Trabajo con empresas y personas que necesitan construir o mejorar una aplicación web, mobile o su
+        infraestructura. Llena el formulario y te respondo en menos de 24 horas.</p>
+      <div class="badges">
+        <span class="badge">Angular</span>
+        <span class="badge">Ionic</span>
+        <span class="badge">Java · Spring Boot</span>
+        <span class="badge">Node.js · Express</span>
+        <span class="badge">Python · PHP</span>
+        <span class="badge">PostgreSQL · MongoDB</span>
+        <span class="badge">Firebase · Oracle</span>
+        <span class="badge">AWS · Azure</span>
+        <span class="badge">GraphQL</span>
+        <span class="badge">Microservicios</span>
+      </div>
+      <div class="divider"></div>
+    </section>
+
+    <div class="form-wrap">
+      <form id="contact-form" novalidate>
+
+        <!-- SECCIÓN 1: Datos de contacto -->
+        <div class="form-section">
+          <span class="form-section-label">01 — Tus datos</span>
+
+          <div class="field">
+            <label for="name">Nombre completo <span class="req">*</span></label>
+            <input type="text" id="name" name="name" placeholder="¿Cómo te llamo?" autocomplete="name" required />
+            <div class="field-error" id="name-error">Por favor escribe tu nombre.</div>
+          </div>
+
+          <div class="field">
+            <label for="email">Correo electrónico <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email" required />
+            <div class="field-error" id="email-error">Escribe un correo válido.</div>
+          </div>
+
+          <div class="field">
+            <label for="whatsapp">Número de WhatsApp <span class="opt">opcional</span></label>
+            <input type="tel" id="whatsapp" name="whatsapp" placeholder="+507 6000 0000" />
+          </div>
+        </div>
+
+        <!-- SECCIÓN 2: Tipo de servicio -->
+        <div class="form-section">
+          <span class="form-section-label">02 — ¿Qué necesitas?</span>
+          <div class="field">
+            <label>Tipo de proyecto <span class="req">*</span></label>
+            <div class="options-grid" id="service-group">
+              <div class="option-item checkbox">
+                <input type="checkbox" id="s1" name="service" value="Aplicación web" />
+                <label for="s1">Aplicación web</label>
+              </div>
+              <div class="option-item checkbox">
+                <input type="checkbox" id="s2" name="service" value="Aplicación mobile" />
+                <label for="s2">Aplicación mobile</label>
+              </div>
+              <div class="option-item checkbox">
+                <input type="checkbox" id="s3" name="service" value="Backend / API" />
+                <label for="s3">Backend / API</label>
+              </div>
+              <div class="option-item checkbox">
+                <input type="checkbox" id="s4" name="service" value="Base de datos" />
+                <label for="s4">Base de datos</label>
+              </div>
+              <div class="option-item checkbox">
+                <input type="checkbox" id="s5" name="service" value="Infraestructura y cloud" />
+                <label for="s5">Infraestructura y cloud</label>
+              </div>
+              <div class="option-item checkbox">
+                <input type="checkbox" id="s6" name="service" value="Auditoría de código" />
+                <label for="s6">Auditoría de código</label>
+              </div>
+              <div class="option-item checkbox">
+                <input type="checkbox" id="s7" name="service" value="Mantenimiento de app existente" />
+                <label for="s7">Mantenimiento de app existente</label>
+              </div>
+              <div class="option-item checkbox">
+                <input type="checkbox" id="s8" name="service" value="No sé exactamente, necesito orientación" />
+                <label for="s8">No sé, necesito orientación</label>
+              </div>
+            </div>
+            <div class="field-error" id="service-error">Selecciona al menos una opción.</div>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 3: Proyecto -->
+        <div class="form-section">
+          <span class="form-section-label">03 — Tu proyecto</span>
+
+          <div class="field">
+            <label for="description">Descripción del proyecto <span class="req">*</span></label>
+            <textarea id="description" name="description" rows="5"
+              placeholder="¿Qué hace la app? ¿Para quién es? ¿En qué etapa está? Entre más detalle, mejor puedo orientarte."
+              required></textarea>
+            <div class="field-error" id="description-error">Cuéntame algo sobre tu proyecto.</div>
+          </div>
+
+          <div class="field">
+            <label for="budget">Presupuesto aproximado <span class="opt">opcional</span></label>
+            <select id="budget" name="budget">
+              <option value="" disabled selected>Selecciona un rango</option>
+              <option value="Menos de $500">Menos de $500</option>
+              <option value="$500 - $1,500">$500 – $1,500</option>
+              <option value="$1,500 - $5,000">$1,500 – $5,000</option>
+              <option value="Más de $5,000">Más de $5,000</option>
+              <option value="Aún no lo sé">Aún no lo sé</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="timeline">¿Cuándo quieres empezar? <span class="opt">opcional</span></label>
+            <select id="timeline" name="timeline">
+              <option value="" disabled selected>Selecciona una opción</option>
+              <option value="Lo antes posible">Lo antes posible</option>
+              <option value="En el próximo mes">En el próximo mes</option>
+              <option value="En 2 o 3 meses">En 2 o 3 meses</option>
+              <option value="Solo estoy explorando">Solo estoy explorando por ahora</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 4: Contacto preferido -->
+        <div class="form-section">
+          <span class="form-section-label">04 — ¿Cómo te contacto?</span>
+          <div class="field">
+            <label>Método de contacto preferido <span class="req">*</span></label>
+            <div class="options-grid" id="contact-group">
+              <div class="option-item">
+                <input type="radio" id="c1" name="contact_method" value="WhatsApp" required />
+                <label for="c1">WhatsApp</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="c2" name="contact_method" value="Correo electrónico" />
+                <label for="c2">Correo electrónico</label>
+              </div>
+              <div class="option-item">
+                <input type="radio" id="c3" name="contact_method" value="Sin preferencia" />
+                <label for="c3">Sin preferencia</label>
+              </div>
+            </div>
+            <div class="field-error" id="contact-error">Elige cómo prefieres que te contacte.</div>
+          </div>
+        </div>
+
+        <div class="submit-area">
+          <p class="submit-note">// Te respondo en menos de 24 horas</p>
+          <button type="submit" id="submit-btn">Enviar solicitud</button>
+        </div>
+
+      </form>
+
+      <!-- SUCCESS -->
+      <div class="success" id="success-msg">
+        <div class="success-icon">✓</div>
+        <h2>¡Recibido!</h2>
+        <p>Gracias por escribirme. Revisé tu mensaje y te respondo en menos de 24 horas.</p>
+        <p>Si necesitas algo urgente, escríbeme directamente por WhatsApp.</p>
+        <a href="https://instagram.com/joel.guerrero.dev" class="handle-link" target="_blank">@joel.guerrero.dev</a>
+      </div>
+    </div>
+
+    <footer>
+      Joel Guerrero · Ingeniero en Sistemas · @joel.guerrero.dev
+    </footer>
+
+    <script>
+      const form = document.getElementById('contact-form');
+      const btn = document.getElementById('submit-btn');
+
+      function showError(id, show) {
+        document.getElementById(id).style.display = show ? 'block' : 'none';
+      }
+      function markField(el, invalid) {
+        el.classList.toggle('invalid', invalid);
+      }
+
+      function validate() {
+        let ok = true;
+
+        const name = document.getElementById('name');
+        const nameOk = name.value.trim().length > 1;
+        markField(name, !nameOk); showError('name-error', !nameOk);
+        if (!nameOk) ok = false;
+
+        const email = document.getElementById('email');
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+        markField(email, !emailOk); showError('email-error', !emailOk);
+        if (!emailOk) ok = false;
+
+        const services = document.querySelectorAll('input[name="service"]:checked');
+        const serviceOk = services.length > 0;
+        showError('service-error', !serviceOk);
+        if (!serviceOk) ok = false;
+
+        const desc = document.getElementById('description');
+        const descOk = desc.value.trim().length > 10;
+        markField(desc, !descOk); showError('description-error', !descOk);
+        if (!descOk) ok = false;
+
+        const contact = document.querySelector('input[name="contact_method"]:checked');
+        const contactOk = !!contact;
+        showError('contact-error', !contactOk);
+        if (!contactOk) ok = false;
+
+        return ok;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!validate()) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Enviando...';
+
+        // Construye el objeto con los datos
+        const data = {
+          nombre: document.getElementById('name').value.trim(),
+          correo: document.getElementById('email').value.trim(),
+          whatsapp: document.getElementById('whatsapp').value.trim(),
+          servicios: [...document.querySelectorAll('input[name="service"]:checked')].map(i => i.value).join(', '),
+          proyecto: document.getElementById('description').value.trim(),
+          presupuesto: document.getElementById('budget').value || 'No indicado',
+          inicio: document.getElementById('timeline').value || 'No indicado',
+          contacto: document.querySelector('input[name="contact_method"]:checked').value,
+        };
+
+        const ACTION = 'https://formspree.io/f/xzdqoqng';
+
+        fetch(ACTION, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        })
+          .then(r => {
+            if (r.ok) {
+              form.style.display = 'none';
+              document.getElementById('success-msg').style.display = 'block';
+            } else {
+              throw new Error('Error en el servidor');
+            }
+          })
+          .catch(() => {
+            // Fallback: abre WhatsApp con los datos si falla el servidor
+            const msg = encodeURIComponent(
+              `Hola Joel, quiero solicitar tus servicios.\n\n` +
+              `Nombre: ${data.nombre}\n` +
+              `Correo: ${data.correo}\n` +
+              `Servicios: ${data.servicios}\n` +
+              `Proyecto: ${data.proyecto}\n` +
+              `Presupuesto: ${data.presupuesto}\n` +
+              `Inicio: ${data.inicio}`
+            );
+            window.open(`https://wa.me/50764146055?text=${msg}`, '_blank');
+            btn.disabled = false;
+            btn.textContent = 'Enviar solicitud';
+          });
+      });
+    </script>
+  </body>
+
+</html>
