@@ -1,624 +1,2049 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Solicita mis servicios — Joel Guerrero</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --bg:        #0a0f1a;
-    --bg2:       #050e1f;
-    --bg3:       #0c1628;
-    --blue:      #378add;
-    --blue-l:    #85b7eb;
-    --blue-d:    #042c53;
-    --blue-m:    #0c447c;
-    --border:    #185fa5;
-    --white:     #ffffff;
-    --gray:      #b5d4f4;
-    --green:     #5dcaa5;
-    --green-d:   #041a12;
-    --green-b:   #085041;
-    --orange:    #f97316;
-    --mono:      'JetBrains Mono', monospace;
-    --sans:      'Space Grotesk', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--gray);
-    font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-
-  /* ── HEADER ── */
-  header {
-    border-bottom: 1px solid var(--border);
-    padding: 20px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    z-index: 10;
-  }
-  .logo {
-    font-family: var(--mono);
-    font-size: 14px;
-    color: var(--blue);
-    letter-spacing: 0.5px;
-  }
-  .logo span { color: var(--white); font-weight: 700; }
-  .handle {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--blue-l);
-    opacity: 0.7;
-  }
-
-  /* ── HERO ── */
-  .hero {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 72px 24px 48px;
-  }
-  .hero-tag {
-    display: inline-block;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--blue-l);
-    background: var(--blue-d);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 4px 14px;
-    margin-bottom: 24px;
-    text-transform: uppercase;
-  }
-  .hero h1 {
-    font-size: clamp(32px, 6vw, 52px);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.15;
-    margin-bottom: 16px;
-  }
-  .hero h1 span { color: var(--blue); }
-  .hero p {
-    font-size: 17px;
-    color: var(--gray);
-    line-height: 1.7;
-    margin-bottom: 32px;
-    max-width: 540px;
-  }
-  .badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 48px;
-  }
-  .badge {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--blue-l);
-    background: var(--blue-m);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 4px 12px;
-  }
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: var(--border);
-    margin-bottom: 48px;
-    opacity: 0.4;
-  }
-
-  /* ── FORM ── */
-  .form-wrap {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 24px 80px;
-  }
-  .form-section {
-    margin-bottom: 40px;
-  }
-  .form-section-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--blue);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: block;
-  }
-  .field {
-    margin-bottom: 20px;
-  }
-  label {
-    display: block;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--white);
-    margin-bottom: 8px;
-  }
-  label .req { color: var(--orange); margin-left: 2px; }
-  label .opt {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--blue-l);
-    font-weight: 400;
-    margin-left: 6px;
-    opacity: 0.6;
-  }
-  input[type="text"],
-  input[type="email"],
-  input[type="tel"],
-  textarea,
-  select {
-    width: 100%;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    color: var(--white);
-    font-family: var(--sans);
-    font-size: 15px;
-    padding: 14px 16px;
-    outline: none;
-    transition: border-color 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-  input::placeholder, textarea::placeholder {
-    color: var(--blue-m);
-    font-size: 14px;
-  }
-  input:focus, textarea:focus, select:focus {
-    border-color: var(--blue);
-    background: var(--bg3);
-  }
-  textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2385b7eb' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    padding-right: 40px;
-    cursor: pointer;
-  }
-  select option { background: var(--bg2); color: var(--white); }
-
-  /* radio / checkbox grid */
-  .options-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 10px;
-  }
-  .option-item {
-    position: relative;
-  }
-  .option-item input[type="radio"],
-  .option-item input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    width: 0; height: 0;
-  }
-  .option-item label {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 16px;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--gray);
-    font-weight: 400;
-    transition: border-color 0.2s, background 0.2s;
-    margin-bottom: 0;
-  }
-  .option-item label::before {
-    content: '';
-    width: 16px; height: 16px;
-    border: 1.5px solid var(--border);
-    border-radius: 50%;
-    flex-shrink: 0;
-    transition: background 0.15s, border-color 0.15s;
-  }
-  .option-item.checkbox label::before { border-radius: 4px; }
-  .option-item input:checked + label {
-    border-color: var(--blue);
-    background: var(--blue-d);
-    color: var(--white);
-  }
-  .option-item input:checked + label::before {
-    background: var(--blue);
-    border-color: var(--blue);
-  }
-
-  /* ── SUBMIT ── */
-  .submit-area {
-    margin-top: 40px;
-    padding-top: 32px;
-    border-top: 1px solid var(--border);
-  }
-  .submit-note {
-    font-size: 13px;
-    color: var(--blue-l);
-    margin-bottom: 20px;
-    font-family: var(--mono);
-    opacity: 0.7;
-  }
-  button[type="submit"] {
-    width: 100%;
-    background: var(--blue);
-    color: var(--white);
-    font-family: var(--sans);
-    font-size: 16px;
-    font-weight: 700;
-    padding: 18px 32px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    transition: background 0.2s, transform 0.1s;
-  }
-  button[type="submit"]:hover { background: #2e74c5; }
-  button[type="submit"]:active { transform: scale(0.99); }
-  button[type="submit"]:disabled {
-    background: var(--blue-m);
-    cursor: not-allowed;
-  }
-
-  /* ── SUCCESS ── */
-  .success {
-    display: none;
-    text-align: center;
-    padding: 60px 24px;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-  .success-icon {
-    width: 72px; height: 72px;
-    background: var(--green-d);
-    border: 2px solid var(--green);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 24px;
-    font-size: 32px;
-  }
-  .success h2 {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 12px;
-  }
-  .success p {
-    color: var(--gray);
-    font-size: 15px;
-    line-height: 1.7;
-    margin-bottom: 8px;
-  }
-  .success .handle-link {
-    display: inline-block;
-    margin-top: 24px;
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--blue);
-    text-decoration: none;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 20px;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 24px;
-    text-align: center;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--blue-l);
-    opacity: 0.5;
-  }
-
-  /* ── ERROR ── */
-  .field-error {
-    font-size: 12px;
-    color: var(--orange);
-    margin-top: 6px;
-    font-family: var(--mono);
-    display: none;
-  }
-  input.invalid, textarea.invalid, select.invalid {
-    border-color: var(--orange) !important;
-  }
-
-  @media (max-width: 520px) {
-    header { padding: 16px 20px; }
-    .hero { padding: 48px 20px 32px; }
-    .form-wrap { padding: 0 20px 60px; }
-    .options-grid { grid-template-columns: 1fr; }
-  }
-</style>
-</head>
-<body>
-
-<header>
-  <div class="logo"><span>Joel Guerrero</span> · dev</div>
-  <div class="handle">@joel.guerrero.dev</div>
-</header>
-
-<section class="hero">
-  <div class="hero-tag">Servicios de desarrollo</div>
-  <h1>Cuéntame sobre<br/><span>tu proyecto</span></h1>
-  <p>Trabajo con empresas y personas que necesitan construir o mejorar una aplicación web, mobile o su infraestructura. Llena el formulario y te respondo en menos de 24 horas.</p>
-  <div class="badges">
-    <span class="badge">Angular</span>
-    <span class="badge">Ionic</span>
-    <span class="badge">Java · Spring Boot</span>
-    <span class="badge">Node.js · Express</span>
-    <span class="badge">Python · PHP</span>
-    <span class="badge">PostgreSQL · MongoDB</span>
-    <span class="badge">Firebase · Oracle</span>
-    <span class="badge">AWS · Azure</span>
-    <span class="badge">GraphQL</span>
-    <span class="badge">Microservicios</span>
-  </div>
-  <div class="divider"></div>
-</section>
-
-<div class="form-wrap">
-  <form id="contact-form" novalidate>
-
-    <!-- SECCIÓN 1: Datos de contacto -->
-    <div class="form-section">
-      <span class="form-section-label">01 — Tus datos</span>
-
-      <div class="field">
-        <label for="name">Nombre completo <span class="req">*</span></label>
-        <input type="text" id="name" name="name" placeholder="¿Cómo te llamo?" autocomplete="name" required/>
-        <div class="field-error" id="name-error">Por favor escribe tu nombre.</div>
-      </div>
-
-      <div class="field">
-        <label for="email">Correo electrónico <span class="req">*</span></label>
-        <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email" required/>
-        <div class="field-error" id="email-error">Escribe un correo válido.</div>
-      </div>
-
-      <div class="field">
-        <label for="whatsapp">Número de WhatsApp <span class="opt">opcional</span></label>
-        <input type="tel" id="whatsapp" name="Número de WhatsApp" placeholder="+507 6000 0000"/>
-      </div>
-    </div>
-
-    <!-- SECCIÓN 2: Tipo de servicio -->
-    <div class="form-section">
-      <span class="form-section-label">02 — ¿Qué necesitas?</span>
-      <div class="field">
-        <label>Tipo de proyecto <span class="req">*</span></label>
-        <div class="options-grid" id="service-group">
-          <div class="option-item checkbox">
-            <input type="checkbox" id="s1" name="service" value="Aplicación web"/>
-            <label for="s1">Aplicación web</label>
-          </div>
-          <div class="option-item checkbox">
-            <input type="checkbox" id="s2" name="service" value="Aplicación mobile"/>
-            <label for="s2">Aplicación mobile</label>
-          </div>
-          <div class="option-item checkbox">
-            <input type="checkbox" id="s3" name="service" value="Backend / API"/>
-            <label for="s3">Backend / API</label>
-          </div>
-          <div class="option-item checkbox">
-            <input type="checkbox" id="s4" name="service" value="Base de datos"/>
-            <label for="s4">Base de datos</label>
-          </div>
-          <div class="option-item checkbox">
-            <input type="checkbox" id="s5" name="service" value="Infraestructura y cloud"/>
-            <label for="s5">Infraestructura y cloud</label>
-          </div>
-          <div class="option-item checkbox">
-            <input type="checkbox" id="s6" name="service" value="Auditoría de código"/>
-            <label for="s6">Auditoría de código</label>
-          </div>
-          <div class="option-item checkbox">
-            <input type="checkbox" id="s7" name="service" value="Mantenimiento de app existente"/>
-            <label for="s7">Mantenimiento de app existente</label>
-          </div>
-          <div class="option-item checkbox">
-            <input type="checkbox" id="s8" name="service" value="No sé exactamente, necesito orientación"/>
-            <label for="s8">No sé, necesito orientación</label>
-          </div>
-        </div>
-        <div class="field-error" id="service-error">Selecciona al menos una opción.</div>
-      </div>
-    </div>
-
-    <!-- SECCIÓN 3: Proyecto -->
-    <div class="form-section">
-      <span class="form-section-label">03 — Tu proyecto</span>
-
-      <div class="field">
-        <label for="description">Descripción del proyecto <span class="req">*</span></label>
-        <textarea id="description" name="description" rows="5"
-          placeholder="¿Qué hace la app? ¿Para quién es? ¿En qué etapa está? Entre más detalle, mejor puedo orientarte." required></textarea>
-        <div class="field-error" id="description-error">Cuéntame algo sobre tu proyecto.</div>
-      </div>
-
-      <div class="field">
-        <label for="budget">Presupuesto aproximado <span class="opt">opcional</span></label>
-        <select id="budget" name="budget">
-          <option value="" disabled selected>Selecciona un rango</option>
-          <option value="Menos de $500">Menos de $500</option>
-          <option value="$500 - $1,500">$500 – $1,500</option>
-          <option value="$1,500 - $5,000">$1,500 – $5,000</option>
-          <option value="Más de $5,000">Más de $5,000</option>
-          <option value="Aún no lo sé">Aún no lo sé</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="timeline">¿Cuándo quieres empezar? <span class="opt">opcional</span></label>
-        <select id="timeline" name="timeline">
-          <option value="" disabled selected>Selecciona una opción</option>
-          <option value="Lo antes posible">Lo antes posible</option>
-          <option value="En el próximo mes">En el próximo mes</option>
-          <option value="En 2 o 3 meses">En 2 o 3 meses</option>
-          <option value="Solo estoy explorando">Solo estoy explorando por ahora</option>
-        </select>
-      </div>
-    </div>
-
-    <!-- SECCIÓN 4: Contacto preferido -->
-    <div class="form-section">
-      <span class="form-section-label">04 — ¿Cómo te contacto?</span>
-      <div class="field">
-        <label>Método de contacto preferido <span class="req">*</span></label>
-        <div class="options-grid" id="contact-group">
-          <div class="option-item">
-            <input type="radio" id="c1" name="contact_method" value="WhatsApp" required/>
-            <label for="c1">WhatsApp</label>
-          </div>
-          <div class="option-item">
-            <input type="radio" id="c2" name="contact_method" value="Correo electrónico"/>
-            <label for="c2">Correo electrónico</label>
-          </div>
-          <div class="option-item">
-            <input type="radio" id="c3" name="contact_method" value="Sin preferencia"/>
-            <label for="c3">Sin preferencia</label>
-          </div>
-        </div>
-        <div class="field-error" id="contact-error">Elige cómo prefieres que te contacte.</div>
-      </div>
-    </div>
-
-    <div class="submit-area">
-      <p class="submit-note">// Te respondo en menos de 24 horas</p>
-      <button type="submit" id="submit-btn">Enviar solicitud</button>
-    </div>
-
-  </form>
-
-  <!-- SUCCESS -->
-  <div class="success" id="success-msg">
-    <div class="success-icon">✓</div>
-    <h2>¡Recibido!</h2>
-    <p>Gracias por escribirme. Revisé tu mensaje y te respondo en menos de 24 horas.</p>
-    <p>Si necesitas algo urgente, escríbeme directamente por WhatsApp.</p>
-    <a href="https://instagram.com/joel.guerrero.dev" class="handle-link" target="_blank">@joel.guerrero.dev</a>
-  </div>
-</div>
-
-<footer>
-  Joel Guerrero · Ingeniero en Sistemas · @joel.guerrero.dev
-</footer>
-
-<script>
-  const form = document.getElementById('contact-form');
-  const btn  = document.getElementById('submit-btn');
-
-  function showError(id, show) {
-    document.getElementById(id).style.display = show ? 'block' : 'none';
-  }
-  function markField(el, invalid) {
-    el.classList.toggle('invalid', invalid);
-  }
-
-  function validate() {
-    let ok = true;
-
-    const name = document.getElementById('name');
-    const nameOk = name.value.trim().length > 1;
-    markField(name, !nameOk); showError('name-error', !nameOk);
-    if (!nameOk) ok = false;
-
-    const email = document.getElementById('email');
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
-    markField(email, !emailOk); showError('email-error', !emailOk);
-    if (!emailOk) ok = false;
-
-    const services = document.querySelectorAll('input[name="service"]:checked');
-    const serviceOk = services.length > 0;
-    showError('service-error', !serviceOk);
-    if (!serviceOk) ok = false;
-
-    const desc = document.getElementById('description');
-    const descOk = desc.value.trim().length > 10;
-    markField(desc, !descOk); showError('description-error', !descOk);
-    if (!descOk) ok = false;
-
-    const contact = document.querySelector('input[name="contact_method"]:checked');
-    const contactOk = !!contact;
-    showError('contact-error', !contactOk);
-    if (!contactOk) ok = false;
-
-    return ok;
-  }
-
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (!validate()) return;
-
-    btn.disabled = true;
-    btn.textContent = 'Enviando...';
-
-    // Construye el objeto con los datos
-    const data = {
-      'Nombre':             document.getElementById('name').value.trim(),
-      'Correo':             document.getElementById('email').value.trim(),
-      'Numero de WhatsApp': document.getElementById('whatsapp').value.trim() || 'No indicado',
-      'Servicios':          [...document.querySelectorAll('input[name="service"]:checked')].map(i => i.value).join(', '),
-      'Proyecto':           document.getElementById('description').value.trim(),
-      'Presupuesto':        document.getElementById('budget').value || 'No indicado',
-      'Cuando empieza':     document.getElementById('timeline').value || 'No indicado',
-      'Contacto preferido': document.querySelector('input[name="contact_method"]:checked').value,
-    };
-
-    // ── OPCIÓN A: Formspree (reemplaza ACTION con tu endpoint de Formspree) ──
-    const ACTION = 'https://formspree.io/f/xzdqoqng';
-
-    fetch(ACTION, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    .then(r => {
-      if (r.ok) {
-        form.style.display = 'none';
-        document.getElementById('success-msg').style.display = 'block';
-      } else {
-        throw new Error('Error en el servidor');
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartNova — Panel de Servicios Digitales</title>
+    <meta name="description"
+      content="Desarrollo de software, cloud, marketing digital, diseño gráfico y servicios gaming. Un solo panel de control para lo que necesites." />
+    <link rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%235B8CFF'/%3E%3Ctext x='32' y='43' font-family='sans-serif' font-size='30' font-weight='700' fill='white' text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet" />
+    <style>
+      /* ============ RESET & TOKENS ============ */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-    })
-    .catch(() => {
-      // Fallback: abre WhatsApp con los datos si falla el servidor
-      const msg = encodeURIComponent(
-        `Hola Joel, quiero solicitar tus servicios.\n\n` +
-        `Nombre: ${data.nombre}\n` +
-        `Correo: ${data.correo}\n` +
-        `Servicios: ${data.servicios}\n` +
-        `Proyecto: ${data.proyecto}\n` +
-        `Presupuesto: ${data.presupuesto}\n` +
-        `Inicio: ${data.inicio}`
-      );
-      window.open(`https://wa.me/50764146055?text=${msg}`, '_blank');
-      btn.disabled = false;
-      btn.textContent = 'Enviar solicitud';
-    });
-  });
-</script>
-</body>
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      :root {
+        --ink: #0A0D14;
+        --ink-2: #080a10;
+        --panel: #12151F;
+        --panel-2: #171B29;
+        --line: rgba(255, 255, 255, .09);
+        --line-strong: rgba(255, 255, 255, .16);
+        --text: #EDEFF7;
+        --muted: #8D93A8;
+        --muted-2: #5C637A;
+        --brand: #5B8CFF;
+        --brand-rgb: 91, 140, 255;
+        --brand-hover: #7AA3FF;
+        --c-dev: #5B8CFF;
+        --c-dev-rgb: 91, 140, 255;
+        --c-cloud: #35D0BA;
+        --c-cloud-rgb: 53, 208, 186;
+        --c-gaming: #B389F5;
+        --c-gaming-rgb: 179, 137, 245;
+        --c-marketing: #F5A947;
+        --c-marketing-rgb: 245, 169, 71;
+        --c-design: #F2669B;
+        --c-design-rgb: 242, 102, 155;
+        --c-other: #7FD858;
+        --c-other-rgb: 127, 216, 88;
+        --r-lg: 22px;
+        --r-md: 14px;
+        --r-sm: 9px;
+        --font-d: 'Unbounded', sans-serif;
+        --font-b: 'Manrope', sans-serif;
+        --font-m: 'JetBrains Mono', monospace;
+        --header-h: 72px;
+      }
+
+      body {
+        background:
+          radial-gradient(1100px 560px at 82% -10%, rgba(91, 140, 255, .10), transparent 60%),
+          radial-gradient(900px 500px at -10% 30%, rgba(179, 137, 245, .07), transparent 55%),
+          var(--ink);
+        color: var(--text);
+        font-family: var(--font-b);
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font: inherit;
+        color: inherit;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      ::selection {
+        background: rgba(var(--brand-rgb), .35);
+        color: #fff;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--brand);
+        outline-offset: 3px;
+        border-radius: 4px;
+      }
+
+      .container {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-m);
+        font-size: 11.5px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: var(--brand-hover);
+      }
+
+      .eyebrow::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 2px;
+        background: var(--brand);
+        flex-shrink: 0;
+      }
+
+      .section {
+        padding: 96px 0;
+        scroll-margin-top: var(--header-h);
+      }
+
+      .section-head {
+        max-width: 640px;
+        margin-bottom: 48px;
+      }
+
+      .section-head h2 {
+        font-family: var(--font-d);
+        font-weight: 600;
+        font-size: clamp(28px, 4vw, 42px);
+        line-height: 1.15;
+        color: #fff;
+        margin-top: 14px;
+      }
+
+      .section-head p {
+        color: var(--muted);
+        font-size: 16px;
+        margin-top: 14px;
+        max-width: 52ch;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-family: var(--font-b);
+        font-weight: 700;
+        font-size: 15px;
+        padding: 14px 26px;
+        border-radius: 100px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: transform .15s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+        white-space: nowrap;
+      }
+
+      .btn:active {
+        transform: scale(.97);
+      }
+
+      .btn--primary {
+        background: var(--brand);
+        color: #fff;
+        box-shadow: 0 8px 24px -8px rgba(var(--brand-rgb), .6);
+      }
+
+      .btn--primary:hover {
+        background: var(--brand-hover);
+      }
+
+      .btn--ghost {
+        background: transparent;
+        border-color: var(--line-strong);
+        color: var(--text);
+      }
+
+      .btn--ghost:hover {
+        border-color: var(--brand);
+        color: var(--brand-hover);
+      }
+
+      .btn--block {
+        width: 100%;
+      }
+
+      /* ============ HEADER ============ */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        height: var(--header-h);
+        display: flex;
+        align-items: center;
+        background: rgba(10, 13, 20, .78);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--font-d);
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+      }
+
+      .logo-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        background: var(--brand);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        font-weight: 800;
+        color: #fff;
+        flex-shrink: 0;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+      }
+
+      .nav-links a {
+        font-size: 14.5px;
+        font-weight: 600;
+        color: var(--muted);
+        transition: color .15s;
+      }
+
+      .nav-links a:hover {
+        color: #fff;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .nav-wa {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 10px 18px;
+        border-radius: 100px;
+        border: 1px solid var(--line-strong);
+        transition: border-color .15s, color .15s;
+      }
+
+      .nav-wa:hover {
+        border-color: var(--c-cloud);
+        color: var(--c-cloud);
+      }
+
+      .burger {
+        display: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        border: 1px solid var(--line-strong);
+        background: transparent;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .burger svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .mobile-menu {
+        position: fixed;
+        inset: var(--header-h) 0 0 0;
+        background: var(--ink-2);
+        z-index: 99;
+        display: flex;
+        flex-direction: column;
+        padding: 32px 24px;
+        gap: 4px;
+        transform: translateY(-8px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity .2s ease, transform .2s ease;
+      }
+
+      .mobile-menu.open {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .mobile-menu a {
+        font-family: var(--font-d);
+        font-size: 22px;
+        font-weight: 600;
+        padding: 16px 4px;
+        border-bottom: 1px solid var(--line);
+        color: #fff;
+      }
+
+      .mobile-menu .btn {
+        margin-top: 20px;
+      }
+
+      /* ============ HERO ============ */
+      .hero {
+        padding: 64px 0 88px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 52px;
+        align-items: center;
+      }
+
+      .hero-copy h1 {
+        font-family: var(--font-d);
+        font-weight: 600;
+        color: #fff;
+        font-size: clamp(34px, 5.6vw, 58px);
+        line-height: 1.08;
+        letter-spacing: -.01em;
+        margin-top: 18px;
+      }
+
+      .hero-copy h1 em {
+        font-style: normal;
+        color: var(--brand);
+        background: linear-gradient(90deg, var(--brand), var(--c-gaming));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-copy p.lead {
+        font-size: 17.5px;
+        color: var(--muted);
+        max-width: 52ch;
+        margin-top: 20px;
+      }
+
+      .hero-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 32px;
+      }
+
+      .hero-bio {
+        display: flex;
+        flex-wrap: wrap;
+        gap-column: 0;
+        align-items: center;
+        gap: 10px 0;
+        font-family: var(--font-m);
+        font-size: 12.5px;
+        color: var(--muted-2);
+        margin-top: 36px;
+      }
+
+      .hero-bio span {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .hero-bio span:not(:last-child)::after {
+        content: '·';
+        margin: 0 12px;
+        color: var(--line-strong);
+      }
+
+      /* module console */
+      .console {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        padding: 6px;
+        box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .7);
+      }
+
+      .console-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px 10px;
+      }
+
+      .console-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--line-strong);
+      }
+
+      .console-label {
+        margin-left: auto;
+        font-family: var(--font-m);
+        font-size: 11px;
+        color: var(--muted-2);
+        letter-spacing: .06em;
+      }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 8px;
+      }
+
+      .module-card {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px;
+        border-radius: var(--r-md);
+        background: var(--panel-2);
+        border: 1px solid var(--line);
+        transition: border-color .18s ease, transform .18s ease, background .18s ease;
+      }
+
+      .module-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(var(--accent-rgb), .55);
+        background: rgba(var(--accent-rgb), .08);
+      }
+
+      .module-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 11px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(var(--accent-rgb), .14);
+        color: var(--accent);
+      }
+
+      .module-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .module-text h3 {
+        font-family: var(--font-b);
+        font-size: 15px;
+        font-weight: 800;
+        color: #fff;
+      }
+
+      .module-text p {
+        font-size: 12.5px;
+        color: var(--muted);
+        margin-top: 3px;
+        line-height: 1.5;
+      }
+
+      .module-go {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        color: var(--muted-2);
+        width: 16px;
+        height: 16px;
+        transition: color .18s, transform .18s;
+      }
+
+      .module-card:hover .module-go {
+        color: var(--accent);
+        transform: translate(2px, -2px);
+      }
+
+      /* ============ MARQUEE ============ */
+      .marquee-wrap {
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+        padding: 26px 0;
+        overflow: hidden;
+      }
+
+      .marquee-label {
+        font-family: var(--font-m);
+        font-size: 11px;
+        letter-spacing: .14em;
+        color: var(--muted-2);
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .marquee-track {
+        display: flex;
+        width: max-content;
+        animation: scroll-x 32s linear infinite;
+      }
+
+      .marquee-track:hover {
+        animation-play-state: paused;
+      }
+
+      .marquee-group {
+        display: flex;
+        gap: 12px;
+        padding-right: 12px;
+      }
+
+      .chip-stack {
+        font-family: var(--font-m);
+        font-size: 12.5px;
+        color: var(--muted);
+        border: 1px solid var(--line);
+        background: var(--panel);
+        border-radius: 100px;
+        padding: 8px 16px;
+        white-space: nowrap;
+      }
+
+      @keyframes scroll-x {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ============ SERVICES ============ */
+      .cat-jump {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 56px;
+      }
+
+      .cat-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13.5px;
+        font-weight: 700;
+        padding: 9px 16px 9px 12px;
+        border-radius: 100px;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        transition: border-color .15s, color .15s, background .15s;
+      }
+
+      .cat-pill i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+
+      .cat-pill:hover {
+        border-color: rgba(var(--accent-rgb), .6);
+        color: #fff;
+        background: rgba(var(--accent-rgb), .08);
+      }
+
+      .cat-panel {
+        border: 1px solid var(--line);
+        border-left: 3px solid var(--accent);
+        border-radius: var(--r-lg);
+        background: linear-gradient(180deg, rgba(var(--accent-rgb), .05), transparent 40%), var(--panel);
+        padding: 32px;
+        margin-bottom: 24px;
+        scroll-margin-top: calc(var(--header-h) + 16px);
+      }
+
+      .cat-head {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 26px;
+      }
+
+      .cat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 13px;
+        background: rgba(var(--accent-rgb), .15);
+        color: var(--accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .cat-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .cat-head h3 {
+        font-family: var(--font-d);
+        font-weight: 600;
+        font-size: 21px;
+        color: #fff;
+      }
+
+      .cat-head p {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      .svc-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px 20px;
+      }
+
+      .svc-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14.5px;
+        color: var(--text);
+        padding: 4px 0;
+      }
+
+      .svc-item i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        margin-top: 9px;
+        flex-shrink: 0;
+      }
+
+      /* ============ PROCESS ============ */
+      .process-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .process-card {
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        padding: 26px;
+        background: var(--panel);
+        position: relative;
+      }
+
+      .process-num {
+        font-family: var(--font-m);
+        font-size: 13px;
+        color: var(--brand-hover);
+      }
+
+      .process-card h3 {
+        font-family: var(--font-b);
+        font-weight: 800;
+        font-size: 17px;
+        color: #fff;
+        margin-top: 12px;
+      }
+
+      .process-card p {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+
+      /* ============ VALUES ============ */
+      .values-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .value-card {
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        padding: 22px;
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        background: var(--panel);
+      }
+
+      .value-card svg {
+        width: 22px;
+        height: 22px;
+        color: var(--brand-hover);
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      .value-card h3 {
+        font-size: 15px;
+        font-weight: 800;
+        color: #fff;
+      }
+
+      .value-card p {
+        font-size: 13.5px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      /* ============ FORM ============ */
+      .form-shell {
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        background: var(--panel);
+        padding: 36px 28px;
+      }
+
+      .form-section {
+        margin-bottom: 34px;
+      }
+
+      .form-section-label {
+        display: block;
+        font-family: var(--font-m);
+        font-size: 11px;
+        letter-spacing: .14em;
+        color: var(--brand-hover);
+        text-transform: uppercase;
+        margin-bottom: 18px;
+      }
+
+      .field {
+        margin-bottom: 18px;
+      }
+
+      label.field-label {
+        display: block;
+        font-size: 13.5px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+
+      .req {
+        color: var(--c-marketing);
+        margin-left: 2px;
+      }
+
+      .opt {
+        font-family: var(--font-m);
+        font-size: 10px;
+        color: var(--muted-2);
+        font-weight: 400;
+        margin-left: 6px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      textarea,
+      select {
+        width: 100%;
+        background: var(--ink);
+        border: 1px solid var(--line);
+        border-radius: var(--r-sm);
+        color: var(--text);
+        font-family: var(--font-b);
+        font-size: 15px;
+        padding: 13px 15px;
+        outline: none;
+        transition: border-color .15s, box-shadow .15s;
+        appearance: none;
+        -webkit-appearance: none;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: var(--muted-2);
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: var(--brand);
+        box-shadow: 0 0 0 3px rgba(var(--brand-rgb), .18);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 110px;
+      }
+
+      select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238D93A8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 40px;
+        cursor: pointer;
+      }
+
+      select option {
+        background: var(--panel);
+        color: var(--text);
+      }
+
+      .field-error {
+        font-size: 12px;
+        color: var(--c-marketing);
+        margin-top: 6px;
+        font-family: var(--font-m);
+        display: none;
+      }
+
+      input.invalid,
+      textarea.invalid,
+      select.invalid {
+        border-color: var(--c-marketing) !important;
+      }
+
+      details.svc-accordion {
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        margin-bottom: 10px;
+        overflow: hidden;
+        background: var(--ink);
+      }
+
+      details.svc-accordion summary {
+        list-style: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 15px 18px;
+        font-size: 14.5px;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      details.svc-accordion summary::-webkit-details-marker {
+        display: none;
+      }
+
+      details.svc-accordion summary i.dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+      }
+
+      details.svc-accordion summary .chev {
+        margin-left: auto;
+        width: 16px;
+        height: 16px;
+        color: var(--muted);
+        transition: transform .2s;
+      }
+
+      details.svc-accordion[open] summary .chev {
+        transform: rotate(180deg);
+      }
+
+      .accordion-body {
+        padding: 6px 18px 18px;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .chip-check {
+        position: relative;
+      }
+
+      .chip-check input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .chip-check label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--r-sm);
+        padding: 11px 14px;
+        cursor: pointer;
+        font-size: 13.5px;
+        color: var(--muted);
+        transition: border-color .15s, background .15s, color .15s;
+      }
+
+      .chip-check label::before {
+        content: '';
+        width: 15px;
+        height: 15px;
+        border-radius: 4px;
+        border: 1.5px solid var(--line-strong);
+        flex-shrink: 0;
+        transition: background .15s, border-color .15s;
+      }
+
+      .chip-check input:checked+label {
+        border-color: var(--accent);
+        background: rgba(var(--accent-rgb), .1);
+        color: #fff;
+      }
+
+      .chip-check input:checked+label::before {
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .radio-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .radio-item {
+        position: relative;
+      }
+
+      .radio-item input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .radio-item label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--ink);
+        border: 1px solid var(--line);
+        border-radius: var(--r-sm);
+        padding: 13px 16px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--muted);
+        transition: border-color .15s, background .15s, color .15s;
+      }
+
+      .radio-item label::before {
+        content: '';
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1.5px solid var(--line-strong);
+        flex-shrink: 0;
+      }
+
+      .radio-item input:checked+label {
+        border-color: var(--brand);
+        background: rgba(var(--brand-rgb), .1);
+        color: #fff;
+      }
+
+      .radio-item input:checked+label::before {
+        background: var(--brand);
+        border-color: var(--brand);
+      }
+
+      .submit-area {
+        margin-top: 8px;
+        padding-top: 26px;
+        border-top: 1px solid var(--line);
+      }
+
+      .submit-note {
+        font-family: var(--font-m);
+        font-size: 12.5px;
+        color: var(--muted-2);
+        margin-bottom: 18px;
+      }
+
+      .success {
+        display: none;
+        text-align: center;
+        padding: 60px 24px;
+        max-width: 460px;
+        margin: 0 auto;
+      }
+
+      .success-icon {
+        width: 64px;
+        height: 64px;
+        background: rgba(var(--c-cloud-rgb), .14);
+        border: 2px solid var(--c-cloud);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 22px;
+        color: var(--c-cloud);
+      }
+
+      .success-icon svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .success h2 {
+        font-family: var(--font-d);
+        font-size: 23px;
+        font-weight: 600;
+        color: #fff;
+        margin-bottom: 10px;
+      }
+
+      .success p {
+        color: var(--muted);
+        font-size: 14.5px;
+        margin-bottom: 6px;
+      }
+
+      .success .handle-link {
+        display: inline-flex;
+        margin-top: 20px;
+        font-family: var(--font-m);
+        font-size: 13px;
+        color: var(--brand-hover);
+        border: 1px solid var(--line-strong);
+        border-radius: 100px;
+        padding: 10px 22px;
+      }
+
+      /* ============ FOOTER ============ */
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 36px 0;
+      }
+
+      .footer-row {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .footer-row .logo {
+        font-size: 14px;
+      }
+
+      footer .foot-links {
+        display: flex;
+        gap: 20px;
+      }
+
+      footer .foot-links a {
+        font-size: 13px;
+        color: var(--muted);
+        transition: color .15s;
+      }
+
+      footer .foot-links a:hover {
+        color: var(--brand-hover);
+      }
+
+      footer .foot-note {
+        font-family: var(--font-m);
+        font-size: 11.5px;
+        color: var(--muted-2);
+      }
+
+      /* reveal-on-scroll */
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity .5s ease, transform .5s ease;
+      }
+
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+
+        .marquee-track {
+          animation: none;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+
+        .module-card:hover {
+          transform: none;
+        }
+      }
+
+      /* ============ RESPONSIVE ============ */
+      @media (min-width:640px) {
+        .module-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .svc-list {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .process-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .values-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .accordion-body {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .radio-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (min-width:860px) {
+        .burger {
+          display: none;
+        }
+
+        .nav-links {
+          display: flex;
+        }
+      }
+
+      @media (max-width:859px) {
+        .nav-links {
+          display: none;
+        }
+
+        .burger {
+          display: flex;
+        }
+      }
+
+      @media (min-width:980px) {
+        .hero-grid {
+          grid-template-columns: 1.05fr .95fr;
+        }
+
+        .footer-row {
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+
+      @media (min-width:1100px) {
+        .svc-list {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+    </style>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container nav">
+        <a href="#inicio" class="logo"><span class="logo-mark">J</span>SmartNova</a>
+        <nav class="nav-links">
+          <a href="#servicios">Servicios</a>
+          <a href="#proceso">Cómo trabajo</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+        <div class="nav-actions">
+          <a class="nav-wa"
+            href="https://wa.me/51947266118?text=Hola%20Aron%2C%20quiero%20informaci%C3%B3n%20sobre%20tus%20servicios."
+            target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.55L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5Z" />
+            </svg>
+            WhatsApp
+          </a>
+          <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Cómo trabajo</a>
+      <a href="#contacto">Contacto</a>
+      <a href="#contacto" class="btn btn--primary btn--block">Solicitar servicio</a>
+    </div>
+
+    <main>
+
+      <!-- ============ HERO ============ -->
+      <section class="hero" id="inicio">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Panel de servicios · LATAM</span>
+            <h1>Un solo lugar para <em>subir de nivel</em> lo que estés construyendo.</h1>
+            <p class="lead">Desarrollo de software, infraestructura cloud, marketing digital, diseño gráfico y servicios
+              gaming. Cuéntame qué necesitas y te respondo en menos de 24 horas.</p>
+            <div class="hero-cta">
+              <a href="#contacto" class="btn btn--primary">Solicitar servicio</a>
+              <a href="#servicios" class="btn btn--ghost">Ver catálogo completo</a>
+            </div>
+            <div class="hero-bio">
+              <span>Ingeniero en Sistemas</span>
+              <span>+5 años en desarrollo, QA y cloud</span>
+              <span>Docente universitario</span>
+            </div>
+          </div>
+
+          <div class="console">
+            <div class="console-bar">
+              <span class="console-dot"></span><span class="console-dot"></span><span class="console-dot"></span>
+              <span class="console-label">// selecciona un módulo</span>
+            </div>
+            <div class="module-grid">
+
+              <a href="#cat-dev" class="module-card" style="--accent:var(--c-dev);--accent-rgb:var(--c-dev-rgb);">
+                <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="8 6 3 12 8 18" />
+                    <polyline points="16 6 21 12 16 18" />
+                  </svg></span>
+                <span class="module-text">
+                  <h3>Desarrollo &amp; Software</h3>
+                  <p>Web, mobile, backend y APIs</p>
+                </span>
+                <svg class="module-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+
+              <a href="#cat-cloud" class="module-card" style="--accent:var(--c-cloud);--accent-rgb:var(--c-cloud-rgb);">
+                <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 18h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7.1 9.06 4 4 0 0 0 7 18Z" />
+                  </svg></span>
+                <span class="module-text">
+                  <h3>Cloud &amp; Infraestructura</h3>
+                  <p>AWS, Azure y gobernanza cloud</p>
+                </span>
+                <svg class="module-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+
+              <a href="#cat-gaming" class="module-card"
+                style="--accent:var(--c-gaming);--accent-rgb:var(--c-gaming-rgb);">
+                <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2.5" y="8" width="19" height="9" rx="4.5" />
+                    <path d="M7 10.5v4M5 12.5h4" />
+                    <circle cx="16" cy="10.8" r=".9" fill="currentColor" stroke="none" />
+                    <circle cx="18.2" cy="13" r=".9" fill="currentColor" stroke="none" />
+                  </svg></span>
+                <span class="module-text">
+                  <h3>Videojuegos &amp; Esports</h3>
+                  <p>Boost, coaching y cuentas</p>
+                </span>
+                <svg class="module-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+
+              <a href="#cat-marketing" class="module-card"
+                style="--accent:var(--c-marketing);--accent-rgb:var(--c-marketing-rgb);">
+                <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 10.5v3a1 1 0 0 0 1 1h1.8l6.7 3.6V5.9L5.8 9.5H4a1 1 0 0 0-1 1Z" />
+                    <path d="M17 9.2a3 3 0 0 1 0 5.6" />
+                  </svg></span>
+                <span class="module-text">
+                  <h3>Marketing Digital</h3>
+                  <p>Redes, ads, SEO y contenido</p>
+                </span>
+                <svg class="module-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+
+              <a href="#cat-design" class="module-card"
+                style="--accent:var(--c-design);--accent-rgb:var(--c-design-rgb);">
+                <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M12 3.5a8.5 8.5 0 1 0 0 17c1 0 1.8-.8 1.8-1.8 0-.47-.18-.9-.47-1.22-.3-.34-.48-.77-.48-1.24 0-.83.67-1.5 1.5-1.5h1.75a4 4 0 0 0 4-4c0-4.4-3.9-7.24-8.1-7.24Z" />
+                    <circle cx="7.3" cy="10.8" r=".9" fill="currentColor" stroke="none" />
+                    <circle cx="10.2" cy="7.6" r=".9" fill="currentColor" stroke="none" />
+                    <circle cx="14.5" cy="8" r=".9" fill="currentColor" stroke="none" />
+                  </svg></span>
+                <span class="module-text">
+                  <h3>Diseño &amp; Multimedia</h3>
+                  <p>Marca, UI/UX y video</p>
+                </span>
+                <svg class="module-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+
+              <a href="#cat-other" class="module-card" style="--accent:var(--c-other);--accent-rgb:var(--c-other-rgb);">
+                <span class="module-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 4 2.5 8.7 12 13.4l9.5-4.7L12 4Z" />
+                    <path d="M6.5 11v4.3c0 1.4 2.8 2.7 5.5 2.7s5.5-1.3 5.5-2.7V11" />
+                  </svg></span>
+                <span class="module-text">
+                  <h3>Educación &amp; Otros</h3>
+                  <p>Mentoría, redacción y más</p>
+                </span>
+                <svg class="module-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 17 17 7M9 7h8v8" />
+                </svg>
+              </a>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ MARQUEE ============ -->
+      <div class="marquee-wrap">
+        <p class="marquee-label">Stack &amp; herramientas</p>
+        <div class="marquee-track" id="marquee">
+          <div class="marquee-group">
+            <span class="chip-stack">Angular</span><span class="chip-stack">Ionic</span><span class="chip-stack">Java ·
+              Spring Boot</span>
+            <span class="chip-stack">Node.js · Express</span><span class="chip-stack">Python</span><span
+              class="chip-stack">PHP</span>
+            <span class="chip-stack">PostgreSQL</span><span class="chip-stack">MongoDB</span><span
+              class="chip-stack">Firebase</span>
+            <span class="chip-stack">AWS</span><span class="chip-stack">Azure</span><span class="chip-stack">Oracle
+              Cloud</span>
+            <span class="chip-stack">GraphQL</span><span class="chip-stack">Microservicios</span>
+          </div>
+          <div class="marquee-group" aria-hidden="true">
+            <span class="chip-stack">Angular</span><span class="chip-stack">Ionic</span><span class="chip-stack">Java ·
+              Spring Boot</span>
+            <span class="chip-stack">Node.js · Express</span><span class="chip-stack">Python</span><span
+              class="chip-stack">PHP</span>
+            <span class="chip-stack">PostgreSQL</span><span class="chip-stack">MongoDB</span><span
+              class="chip-stack">Firebase</span>
+            <span class="chip-stack">AWS</span><span class="chip-stack">Azure</span><span class="chip-stack">Oracle
+              Cloud</span>
+            <span class="chip-stack">GraphQL</span><span class="chip-stack">Microservicios</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ SERVICIOS ============ -->
+      <section class="section" id="servicios">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Catálogo</span>
+            <h2>Seis módulos, un mismo panel de control.</h2>
+            <p>Explora por categoría o salta directo con los enlaces de abajo. Puedes combinar servicios de más de un
+              módulo en tu solicitud.</p>
+          </div>
+
+          <div class="cat-jump">
+            <a class="cat-pill" href="#cat-dev"
+              style="--accent:var(--c-dev);--accent-rgb:var(--c-dev-rgb);"><i></i>Desarrollo</a>
+            <a class="cat-pill" href="#cat-cloud"
+              style="--accent:var(--c-cloud);--accent-rgb:var(--c-cloud-rgb);"><i></i>Cloud</a>
+            <a class="cat-pill" href="#cat-gaming"
+              style="--accent:var(--c-gaming);--accent-rgb:var(--c-gaming-rgb);"><i></i>Gaming</a>
+            <a class="cat-pill" href="#cat-marketing"
+              style="--accent:var(--c-marketing);--accent-rgb:var(--c-marketing-rgb);"><i></i>Marketing</a>
+            <a class="cat-pill" href="#cat-design"
+              style="--accent:var(--c-design);--accent-rgb:var(--c-design-rgb);"><i></i>Diseño</a>
+            <a class="cat-pill" href="#cat-other"
+              style="--accent:var(--c-other);--accent-rgb:var(--c-other-rgb);"><i></i>Educación &amp; otros</a>
+          </div>
+
+          <!-- DEV -->
+          <article class="cat-panel reveal" id="cat-dev" style="--accent:var(--c-dev);--accent-rgb:var(--c-dev-rgb);">
+            <div class="cat-head">
+              <span class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="8 6 3 12 8 18" />
+                  <polyline points="16 6 21 12 16 18" />
+                </svg></span>
+              <div>
+                <h3>Desarrollo &amp; Software</h3>
+                <p>Aplicaciones y sistemas a la medida, de principio a fin.</p>
+              </div>
+            </div>
+            <div class="svc-list">
+              <div class="svc-item"><i></i>Aplicaciones web a medida</div>
+              <div class="svc-item"><i></i>Aplicaciones móviles (Android, iOS e híbridas)</div>
+              <div class="svc-item"><i></i>Backend y APIs REST / GraphQL</div>
+              <div class="svc-item"><i></i>Diseño y optimización de bases de datos (SQL y NoSQL)</div>
+              <div class="svc-item"><i></i>Auditoría y revisión de código</div>
+              <div class="svc-item"><i></i>Mantenimiento de software existente</div>
+              <div class="svc-item"><i></i>Automatización de procesos y scripts</div>
+              <div class="svc-item"><i></i>Integraciones con IA y chatbots</div>
+            </div>
+          </article>
+
+          <!-- CLOUD -->
+          <article class="cat-panel reveal" id="cat-cloud"
+            style="--accent:var(--c-cloud);--accent-rgb:var(--c-cloud-rgb);">
+            <div class="cat-head">
+              <span class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M7 18h10a4 4 0 0 0 .5-7.97A5.5 5.5 0 0 0 7.1 9.06 4 4 0 0 0 7 18Z" />
+                </svg></span>
+              <div>
+                <h3>Cloud &amp; Infraestructura</h3>
+                <p>Arquitectura y gobernanza para que tu sistema no se caiga.</p>
+              </div>
+            </div>
+            <div class="svc-list">
+              <div class="svc-item"><i></i>Migración a la nube (AWS, Azure, Oracle Cloud)</div>
+              <div class="svc-item"><i></i>Arquitectura y gobernanza cloud</div>
+              <div class="svc-item"><i></i>Alta disponibilidad y auto-escalado</div>
+              <div class="svc-item"><i></i>Seguridad y control de accesos</div>
+              <div class="svc-item"><i></i>Optimización de costos en la nube</div>
+              <div class="svc-item"><i></i>CI/CD y despliegue continuo</div>
+              <div class="svc-item"><i></i>Hosting y despliegue (Firebase y servidores propios)</div>
+            </div>
+          </article>
+
+          <!-- GAMING -->
+          <article class="cat-panel reveal" id="cat-gaming"
+            style="--accent:var(--c-gaming);--accent-rgb:var(--c-gaming-rgb);">
+            <div class="cat-head">
+              <span class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2.5" y="8" width="19" height="9" rx="4.5" />
+                  <path d="M7 10.5v4M5 12.5h4" />
+                  <circle cx="16" cy="10.8" r=".9" fill="currentColor" stroke="none" />
+                  <circle cx="18.2" cy="13" r=".9" fill="currentColor" stroke="none" />
+                </svg></span>
+              <div>
+                <h3>Videojuegos &amp; Esports</h3>
+                <p>Sube de rango o entiende tu rendimiento en el juego.</p>
+              </div>
+            </div>
+            <div class="svc-list">
+              <div class="svc-item"><i></i>Elo boost / subida de rango</div>
+              <div class="svc-item"><i></i>Coaching y análisis de partidas</div>
+              <div class="svc-item"><i></i>Dúo queue (jugar en compañía)</div>
+              <div class="svc-item"><i></i>Venta y transferencia de cuentas</div>
+              <div class="svc-item"><i></i>Desbloqueo de logros y misiones</div>
+              <div class="svc-item"><i></i>Analítica y estadísticas de rendimiento</div>
+            </div>
+          </article>
+
+          <!-- MARKETING -->
+          <article class="cat-panel reveal" id="cat-marketing"
+            style="--accent:var(--c-marketing);--accent-rgb:var(--c-marketing-rgb);">
+            <div class="cat-head">
+              <span class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10.5v3a1 1 0 0 0 1 1h1.8l6.7 3.6V5.9L5.8 9.5H4a1 1 0 0 0-1 1Z" />
+                  <path d="M17 9.2a3 3 0 0 1 0 5.6" />
+                </svg></span>
+              <div>
+                <h3>Marketing Digital</h3>
+                <p>Que te encuentren y que vuelvan.</p>
+              </div>
+            </div>
+            <div class="svc-list">
+              <div class="svc-item"><i></i>Gestión de redes sociales</div>
+              <div class="svc-item"><i></i>Publicidad pagada (Meta Ads, Google Ads)</div>
+              <div class="svc-item"><i></i>SEO y posicionamiento web</div>
+              <div class="svc-item"><i></i>Estrategia y calendario de contenido</div>
+              <div class="svc-item"><i></i>Email marketing</div>
+              <div class="svc-item"><i></i>Copywriting publicitario</div>
+            </div>
+          </article>
+
+          <!-- DESIGN -->
+          <article class="cat-panel reveal" id="cat-design"
+            style="--accent:var(--c-design);--accent-rgb:var(--c-design-rgb);">
+            <div class="cat-head">
+              <span class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path
+                    d="M12 3.5a8.5 8.5 0 1 0 0 17c1 0 1.8-.8 1.8-1.8 0-.47-.18-.9-.47-1.22-.3-.34-.48-.77-.48-1.24 0-.83.67-1.5 1.5-1.5h1.75a4 4 0 0 0 4-4c0-4.4-3.9-7.24-8.1-7.24Z" />
+                  <circle cx="7.3" cy="10.8" r=".9" fill="currentColor" stroke="none" />
+                  <circle cx="10.2" cy="7.6" r=".9" fill="currentColor" stroke="none" />
+                  <circle cx="14.5" cy="8" r=".9" fill="currentColor" stroke="none" />
+                </svg></span>
+              <div>
+                <h3>Diseño &amp; Multimedia</h3>
+                <p>Identidad visual que se ve tan bien como funciona tu producto.</p>
+              </div>
+            </div>
+            <div class="svc-list">
+              <div class="svc-item"><i></i>Identidad de marca y logotipos</div>
+              <div class="svc-item"><i></i>Diseño UI/UX</div>
+              <div class="svc-item"><i></i>Banners y piezas publicitarias</div>
+              <div class="svc-item"><i></i>Edición de video y motion graphics</div>
+              <div class="svc-item"><i></i>Diseño de presentaciones</div>
+              <div class="svc-item"><i></i>Ilustración y assets para redes</div>
+            </div>
+          </article>
+
+          <!-- OTHER -->
+          <article class="cat-panel reveal" id="cat-other"
+            style="--accent:var(--c-other);--accent-rgb:var(--c-other-rgb);">
+            <div class="cat-head">
+              <span class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 4 2.5 8.7 12 13.4l9.5-4.7L12 4Z" />
+                  <path d="M6.5 11v4.3c0 1.4 2.8 2.7 5.5 2.7s5.5-1.3 5.5-2.7V11" />
+                </svg></span>
+              <div>
+                <h3>Educación &amp; Otros</h3>
+                <p>Para lo que no encaja en una sola caja.</p>
+              </div>
+            </div>
+            <div class="svc-list">
+              <div class="svc-item"><i></i>Mentoría y clases particulares de programación</div>
+              <div class="svc-item"><i></i>Redacción de contenido y blogs</div>
+              <div class="svc-item"><i></i>Asistencia virtual y tareas administrativas</div>
+              <div class="svc-item"><i></i>Transcripción de documentos</div>
+              <div class="svc-item"><i></i>Traducción de textos técnicos</div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ============ PROCESO ============ -->
+      <section class="section" id="proceso" style="padding-top:0;">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Cómo trabajo</span>
+            <h2>Tres pasos, sin vueltas.</h2>
+          </div>
+          <div class="process-grid reveal">
+            <div class="process-card">
+              <span class="process-num">01</span>
+              <h3>Cuéntame tu proyecto</h3>
+              <p>Llenas el formulario con lo que necesitas: módulo, alcance y objetivo.</p>
+            </div>
+            <div class="process-card">
+              <span class="process-num">02</span>
+              <h3>Recibe tu cotización</h3>
+              <p>Te respondo en menos de 24 horas con alcance, tiempo estimado y forma de trabajo.</p>
+            </div>
+            <div class="process-card">
+              <span class="process-num">03</span>
+              <h3>Entrega por etapas</h3>
+              <p>Avanzamos con entregas verificables y acompañamiento después del lanzamiento.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ VALUES ============ -->
+      <section class="section" style="padding-top:0;">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Por qué trabajar conmigo</span>
+            <h2>Un solo punto de contacto para todo.</h2>
+          </div>
+          <div class="values-grid reveal">
+            <div class="value-card">
+              <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+                viewBox="0 0 24 24">
+                <path d="M4 4h16v12H7l-3 3V4Z" />
+              </svg>
+              <div>
+                <h3>Comunicación directa</h3>
+                <p>Hablas conmigo, sin intermediarios ni cadenas de reenvíos.</p>
+              </div>
+            </div>
+            <div class="value-card">
+              <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+                viewBox="0 0 24 24">
+                <path d="M9 12.5 11 14.5 15.5 9.5" />
+                <circle cx="12" cy="12" r="9" />
+              </svg>
+              <div>
+                <h3>Cotización clara</h3>
+                <p>Sabes el alcance y el costo antes de empezar, sin sorpresas.</p>
+              </div>
+            </div>
+            <div class="value-card">
+              <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+                viewBox="0 0 24 24">
+                <polyline points="8 6 3 12 8 18" />
+                <polyline points="16 6 21 12 16 18" />
+              </svg>
+              <div>
+                <h3>Stack multidisciplinario</h3>
+                <p>De backend a diseño gráfico, sin tener que coordinar cinco proveedores distintos.</p>
+              </div>
+            </div>
+            <div class="value-card">
+              <svg fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+                viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 3" />
+              </svg>
+              <div>
+                <h3>Respuesta rápida</h3>
+                <p>Te contesto en menos de 24 horas, todos los días.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CONTACTO / FORM ============ -->
+      <section class="section" id="contacto" style="padding-top:0;">
+        <div class="container">
+          <div class="section-head reveal">
+            <span class="eyebrow">Solicitar servicio</span>
+            <h2>Cuéntame qué necesitas.</h2>
+            <p>Marca los servicios que apliquen — puedes elegir de más de un módulo. Te respondo en menos de 24 horas.
+            </p>
+          </div>
+
+          <div class="form-shell reveal">
+            <form id="contact-form" novalidate>
+
+              <div class="form-section">
+                <span class="form-section-label">01 — Tus datos</span>
+                <div class="field">
+                  <label class="field-label" for="name">Nombre completo <span class="req">*</span></label>
+                  <input type="text" id="name" name="name" placeholder="¿Cómo te llamo?" autocomplete="name" required />
+                  <div class="field-error" id="name-error">Por favor escribe tu nombre.</div>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="email">Correo electrónico <span class="req">*</span></label>
+                  <input type="email" id="email" name="email" placeholder="tu@correo.com" autocomplete="email"
+                    required />
+                  <div class="field-error" id="email-error">Escribe un correo válido.</div>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="whatsapp">Número de WhatsApp <span class="opt">opcional</span></label>
+                  <input type="tel" id="whatsapp" name="whatsapp" placeholder="+507 6000 0000" />
+                </div>
+              </div>
+
+              <div class="form-section">
+                <span class="form-section-label">02 — ¿Qué necesitas?</span>
+
+                <details class="svc-accordion" style="--accent:var(--c-dev);--accent-rgb:var(--c-dev-rgb);">
+                  <summary><i class="dot"></i>Desarrollo &amp; Software<svg class="chev" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg></summary>
+                  <div class="accordion-body">
+                    <div class="chip-check"><input type="checkbox" id="s-dev-1" name="service"
+                        value="Aplicación web a medida" /><label for="s-dev-1">Aplicación web a medida</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-dev-2" name="service"
+                        value="Aplicación móvil" /><label for="s-dev-2">Aplicación móvil</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-dev-3" name="service"
+                        value="Backend / API" /><label for="s-dev-3">Backend / API</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-dev-4" name="service"
+                        value="Bases de datos" /><label for="s-dev-4">Bases de datos</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-dev-5" name="service"
+                        value="Auditoría de código" /><label for="s-dev-5">Auditoría de código</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-dev-6" name="service"
+                        value="Mantenimiento de software" /><label for="s-dev-6">Mantenimiento de software</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-dev-7" name="service"
+                        value="Automatización de procesos" /><label for="s-dev-7">Automatización de procesos</label>
+                    </div>
+                    <div class="chip-check"><input type="checkbox" id="s-dev-8" name="service"
+                        value="Integraciones con IA / chatbots" /><label for="s-dev-8">Integraciones con IA /
+                        chatbots</label></div>
+                  </div>
+                </details>
+
+                <details class="svc-accordion" style="--accent:var(--c-cloud);--accent-rgb:var(--c-cloud-rgb);">
+                  <summary><i class="dot"></i>Cloud &amp; Infraestructura<svg class="chev" viewBox="0 0 24 24"
+                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg></summary>
+                  <div class="accordion-body">
+                    <div class="chip-check"><input type="checkbox" id="s-cloud-1" name="service"
+                        value="Migración a la nube" /><label for="s-cloud-1">Migración a la nube</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-cloud-2" name="service"
+                        value="Arquitectura / gobernanza cloud" /><label for="s-cloud-2">Arquitectura / gobernanza
+                        cloud</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-cloud-3" name="service"
+                        value="Alta disponibilidad y auto-escalado" /><label for="s-cloud-3">Alta disponibilidad y
+                        auto-escalado</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-cloud-4" name="service"
+                        value="Seguridad y accesos" /><label for="s-cloud-4">Seguridad y accesos</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-cloud-5" name="service"
+                        value="Optimización de costos cloud" /><label for="s-cloud-5">Optimización de costos
+                        cloud</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-cloud-6" name="service" value="CI/CD" /><label
+                        for="s-cloud-6">CI/CD</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-cloud-7" name="service"
+                        value="Hosting y despliegue" /><label for="s-cloud-7">Hosting y despliegue</label></div>
+                  </div>
+                </details>
+
+                <details class="svc-accordion" style="--accent:var(--c-gaming);--accent-rgb:var(--c-gaming-rgb);">
+                  <summary><i class="dot"></i>Videojuegos &amp; Esports<svg class="chev" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg></summary>
+                  <div class="accordion-body">
+                    <div class="chip-check"><input type="checkbox" id="s-game-1" name="service"
+                        value="Elo boost" /><label for="s-game-1">Elo boost</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-game-2" name="service"
+                        value="Coaching / análisis de partidas" /><label for="s-game-2">Coaching / análisis de
+                        partidas</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-game-3" name="service"
+                        value="Dúo queue" /><label for="s-game-3">Dúo queue</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-game-4" name="service"
+                        value="Venta / transferencia de cuenta" /><label for="s-game-4">Venta / transferencia de
+                        cuenta</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-game-5" name="service"
+                        value="Desbloqueo de logros" /><label for="s-game-5">Desbloqueo de logros</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-game-6" name="service"
+                        value="Analítica de rendimiento" /><label for="s-game-6">Analítica de rendimiento</label></div>
+                  </div>
+                </details>
+
+                <details class="svc-accordion" style="--accent:var(--c-marketing);--accent-rgb:var(--c-marketing-rgb);">
+                  <summary><i class="dot"></i>Marketing Digital<svg class="chev" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg></summary>
+                  <div class="accordion-body">
+                    <div class="chip-check"><input type="checkbox" id="s-mkt-1" name="service"
+                        value="Gestión de redes sociales" /><label for="s-mkt-1">Gestión de redes sociales</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-mkt-2" name="service"
+                        value="Publicidad pagada (Ads)" /><label for="s-mkt-2">Publicidad pagada (Ads)</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-mkt-3" name="service" value="SEO" /><label
+                        for="s-mkt-3">SEO</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-mkt-4" name="service"
+                        value="Estrategia de contenido" /><label for="s-mkt-4">Estrategia de contenido</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-mkt-5" name="service"
+                        value="Email marketing" /><label for="s-mkt-5">Email marketing</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-mkt-6" name="service"
+                        value="Copywriting" /><label for="s-mkt-6">Copywriting</label></div>
+                  </div>
+                </details>
+
+                <details class="svc-accordion" style="--accent:var(--c-design);--accent-rgb:var(--c-design-rgb);">
+                  <summary><i class="dot"></i>Diseño &amp; Multimedia<svg class="chev" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg></summary>
+                  <div class="accordion-body">
+                    <div class="chip-check"><input type="checkbox" id="s-des-1" name="service"
+                        value="Identidad de marca / logotipo" /><label for="s-des-1">Identidad de marca /
+                        logotipo</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-des-2" name="service"
+                        value="Diseño UI/UX" /><label for="s-des-2">Diseño UI/UX</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-des-3" name="service"
+                        value="Banners / piezas publicitarias" /><label for="s-des-3">Banners / piezas
+                        publicitarias</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-des-4" name="service"
+                        value="Edición de video / motion graphics" /><label for="s-des-4">Edición de video / motion
+                        graphics</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-des-5" name="service"
+                        value="Diseño de presentaciones" /><label for="s-des-5">Diseño de presentaciones</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-des-6" name="service"
+                        value="Ilustración / assets para redes" /><label for="s-des-6">Ilustración / assets para
+                        redes</label></div>
+                  </div>
+                </details>
+
+                <details class="svc-accordion" style="--accent:var(--c-other);--accent-rgb:var(--c-other-rgb);">
+                  <summary><i class="dot"></i>Educación &amp; Otros<svg class="chev" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9l6 6 6-6" />
+                    </svg></summary>
+                  <div class="accordion-body">
+                    <div class="chip-check"><input type="checkbox" id="s-oth-1" name="service"
+                        value="Mentoría / clases de programación" /><label for="s-oth-1">Mentoría / clases de
+                        programación</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-oth-2" name="service"
+                        value="Redacción de contenido" /><label for="s-oth-2">Redacción de contenido</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-oth-3" name="service"
+                        value="Asistencia virtual" /><label for="s-oth-3">Asistencia virtual</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-oth-4" name="service"
+                        value="Transcripción de documentos" /><label for="s-oth-4">Transcripción de documentos</label>
+                    </div>
+                    <div class="chip-check"><input type="checkbox" id="s-oth-5" name="service"
+                        value="Traducción técnica" /><label for="s-oth-5">Traducción técnica</label></div>
+                    <div class="chip-check"><input type="checkbox" id="s-oth-6" name="service"
+                        value="No sé exactamente, necesito orientación" /><label for="s-oth-6">No sé, necesito
+                        orientación</label></div>
+                  </div>
+                </details>
+
+                <div class="field-error" id="service-error" style="margin-top:6px;">Selecciona al menos un servicio.
+                </div>
+              </div>
+
+              <div class="form-section">
+                <span class="form-section-label">03 — Tu proyecto</span>
+                <div class="field">
+                  <label class="field-label" for="description">Descripción del proyecto <span
+                      class="req">*</span></label>
+                  <textarea id="description" name="description" rows="5"
+                    placeholder="¿Qué necesitas? ¿Para quién es? ¿En qué etapa está? Entre más detalle, mejor puedo orientarte."
+                    required></textarea>
+                  <div class="field-error" id="description-error">Cuéntame algo sobre tu proyecto.</div>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="budget">Presupuesto aproximado <span
+                      class="opt">opcional</span></label>
+                  <select id="budget" name="budget">
+                    <option value="" disabled selected>Selecciona un rango</option>
+                    <option value="Menos de $500">Menos de $500</option>
+                    <option value="$500 - $1,500">$500 – $1,500</option>
+                    <option value="$1,500 - $5,000">$1,500 – $5,000</option>
+                    <option value="Más de $5,000">Más de $5,000</option>
+                    <option value="Aún no lo sé">Aún no lo sé</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label class="field-label" for="timeline">¿Cuándo quieres empezar? <span
+                      class="opt">opcional</span></label>
+                  <select id="timeline" name="timeline">
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="Lo antes posible">Lo antes posible</option>
+                    <option value="En el próximo mes">En el próximo mes</option>
+                    <option value="En 2 o 3 meses">En 2 o 3 meses</option>
+                    <option value="Solo estoy explorando">Solo estoy explorando por ahora</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-section" style="margin-bottom:0;">
+                <span class="form-section-label">04 — ¿Cómo te contacto?</span>
+                <div class="radio-grid">
+                  <div class="radio-item"><input type="radio" id="c1" name="contact_method" value="WhatsApp"
+                      required /><label for="c1">WhatsApp</label></div>
+                  <div class="radio-item"><input type="radio" id="c2" name="contact_method"
+                      value="Correo electrónico" /><label for="c2">Correo electrónico</label></div>
+                  <div class="radio-item"><input type="radio" id="c3" name="contact_method"
+                      value="Sin preferencia" /><label for="c3">Sin preferencia</label></div>
+                </div>
+                <div class="field-error" id="contact-error" style="margin-top:10px;">Elige cómo prefieres que te
+                  contacte.</div>
+              </div>
+
+              <div class="submit-area">
+                <p class="submit-note">// Te respondo en menos de 24 horas</p>
+                <button type="submit" class="btn btn--primary btn--block" id="submit-btn">Enviar solicitud</button>
+              </div>
+            </form>
+
+            <div class="success" id="success-msg">
+              <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg></div>
+              <h2>¡Recibido!</h2>
+              <p>Gracias por escribirme. Revisé tu mensaje y te respondo en menos de 24 horas.</p>
+              <p>Si necesitas algo urgente, escríbeme directamente por WhatsApp.</p>
+              <a href="https://instagram.com/joel.guerrero.dev" class="handle-link" target="_blank"
+                rel="noopener">@joel.guerrero.dev</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="container footer-row">
+        <a href="#inicio" class="logo"><span class="logo-mark">J</span> Joel Guerrero</a>
+        <div class="foot-links">
+          <a href="https://instagram.com/joel.guerrero.dev" target="_blank" rel="noopener">@joel.guerrero.dev</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#contacto">Contacto</a>
+        </div>
+        <span class="foot-note">Ingeniero en Sistemas · Panamá</span>
+      </div>
+    </footer>
+
+    <script>
+      /* mobile menu */
+      const burger = document.getElementById('burger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      burger.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(isOpen));
+      });
+      mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+      }));
+
+      /* scroll reveal */
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      } else {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+      }
+
+      /* form */
+      const form = document.getElementById('contact-form');
+      const btn = document.getElementById('submit-btn');
+
+      function showError(id, show) {
+        const el = document.getElementById(id);
+        if (el) el.style.display = show ? 'block' : 'none';
+      }
+      function markField(el, invalid) { el.classList.toggle('invalid', invalid); }
+
+      function validate() {
+        let ok = true;
+
+        const name = document.getElementById('name');
+        const nameOk = name.value.trim().length > 1;
+        markField(name, !nameOk); showError('name-error', !nameOk);
+        if (!nameOk) ok = false;
+
+        const email = document.getElementById('email');
+        const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+        markField(email, !emailOk); showError('email-error', !emailOk);
+        if (!emailOk) ok = false;
+
+        const services = document.querySelectorAll('input[name="service"]:checked');
+        const serviceOk = services.length > 0;
+        showError('service-error', !serviceOk);
+        if (!serviceOk) ok = false;
+
+        const desc = document.getElementById('description');
+        const descOk = desc.value.trim().length > 10;
+        markField(desc, !descOk); showError('description-error', !descOk);
+        if (!descOk) ok = false;
+
+        const contact = document.querySelector('input[name="contact_method"]:checked');
+        const contactOk = !!contact;
+        showError('contact-error', !contactOk);
+        if (!contactOk) ok = false;
+
+        return ok;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!validate()) return;
+
+        btn.disabled = true;
+        btn.textContent = 'Enviando...';
+
+        const data = {
+          'Nombre': document.getElementById('name').value.trim(),
+          'Correo': document.getElementById('email').value.trim(),
+          'Numero de WhatsApp': document.getElementById('whatsapp').value.trim() || 'No indicado',
+          'Servicios': [...document.querySelectorAll('input[name="service"]:checked')].map(i => i.value).join(', '),
+          'Proyecto': document.getElementById('description').value.trim(),
+          'Presupuesto': document.getElementById('budget').value || 'No indicado',
+          'Cuando empieza': document.getElementById('timeline').value || 'No indicado',
+          'Contacto preferido': document.querySelector('input[name="contact_method"]:checked').value,
+        };
+
+        const ACTION = 'https://formspree.io/f/xzdqoqng';
+
+        fetch(ACTION, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        })
+          .then(r => {
+            if (r.ok) {
+              form.style.display = 'none';
+              document.getElementById('success-msg').style.display = 'block';
+            } else {
+              throw new Error('Error en el servidor');
+            }
+          })
+          .catch(() => {
+            const msg = encodeURIComponent(
+              `Hola Joel, quiero solicitar tus servicios.\n\n` +
+              `Nombre: ${data['Nombre']}\n` +
+              `Correo: ${data['Correo']}\n` +
+              `Servicios: ${data['Servicios']}\n` +
+              `Proyecto: ${data['Proyecto']}\n` +
+              `Presupuesto: ${data['Presupuesto']}\n` +
+              `Inicio: ${data['Cuando empieza']}`
+            );
+            window.open(`https://wa.me/50764146055?text=${msg}`, '_blank');
+            btn.disabled = false;
+            btn.textContent = 'Enviar solicitud';
+          });
+      });
+    </script>
+  </body>
+
 </html>
